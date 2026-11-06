@@ -1,0 +1,257 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="c4-contexto" name="C4 / Nível 1 - Contexto">
+    <mxGraphModel page="1" pageWidth="1100" pageHeight="900">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="rec" value="Recepcionista&#10;[Pessoa]&#10;Cadastros e agenda" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="60" width="240" height="100" />
+        </mxCell>
+        <mxCell id="prof" value="Profissional de saúde&#10;[Pessoa]&#10;Atendimento clínico" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="415" y="60" width="240" height="100" />
+        </mxCell>
+        <mxCell id="adm" value="Administrador&#10;[Pessoa]&#10;Gestão e auditoria" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="800" y="60" width="240" height="100" />
+        </mxCell>
+        <mxCell id="sc" value="SaúdeCerta&#10;[Sistema de software]&#10;Gestão da clínica" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="415" y="370" width="270" height="130" />
+        </mxCell>
+        <mxCell id="pac" value="Paciente&#10;[Pessoa]&#10;Dados e consultas próprios" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="700" width="240" height="100" />
+        </mxCell>
+        <mxCell id="wa" value="WhatsApp Business API&#10;[Sistema externo]&#10;Transporte de mensagens" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="800" y="700" width="260" height="110" />
+        </mxCell>
+        <mxCell id="edge0" value="Cadastra / agenda" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="rec" target="sc" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge1" value="Consulta / registra" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="prof" target="sc" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge2" value="Administra / audita" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="adm" target="sc" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge3" value="Autoatendimento web" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="pac" target="sc" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge4" value="Conversa pelo aplicativo" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="pac" target="wa" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge5" value="Entrega mensagens" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="wa" target="sc" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge6" value="Envia confirmações" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="sc" target="wa" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="c4-conteineres" name="C4 / Nível 2 - Contêineres">
+    <mxGraphModel page="1" pageWidth="1200" pageHeight="1100">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="boundary" value="SaúdeCerta / limite do sistema" style="rounded=1;dashed=1;fillColor=none;verticalAlign=top;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="220" width="800" height="820" />
+        </mxCell>
+        <mxCell id="usr" value="Paciente / Recepção&#10;Profissional / Administrador&#10;[Pessoas]" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="100" y="55" width="320" height="100" />
+        </mxCell>
+        <mxCell id="web" value="C-WEB / Interface web&#10;[Contêiner: HTML/CSS/JS]&#10;Executa no navegador" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="100" y="290" width="300" height="110" />
+        </mxCell>
+        <mxCell id="app" value="C-APP / Aplicação&#10;[Contêiner: Java/Spring Boot]&#10;API, módulos, bot e worker" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="100" y="590" width="330" height="120" />
+        </mxCell>
+        <mxCell id="pg" value="C-PG / Banco transacional&#10;[Contêiner: PostgreSQL]&#10;Negócio, sessão web, outbox" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="80" y="900" width="350" height="110" />
+        </mxCell>
+        <mxCell id="redis" value="C-REDIS / Sessões e cache&#10;[Contêiner: Redis]&#10;Estado transitório do bot" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="490" y="900" width="320" height="110" />
+        </mxCell>
+        <mxCell id="wa" value="WhatsApp Business API&#10;[Sistema externo]&#10;Mensagens / webhooks" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="880" y="340" width="280" height="120" />
+        </mxCell>
+        <mxCell id="edge0" value="Opera interface" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="usr" target="web" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge1" value="HTTPS / JSON e arquivos" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="web" target="app" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge2" value="Persiste / consulta via JDBC/TLS" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="app" target="pg" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge3" value="Sessões / cache via RESP/TLS" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="app" target="redis" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge4" value="Paciente conversa" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="usr" target="wa" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge5" value="Webhooks HTTPS" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="wa" target="app" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge6" value="Confirmações HTTPS" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="app" target="wa" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="c4-componentes" name="C4 / Nível 3 - Componentes de C-APP">
+    <mxGraphModel page="1" pageWidth="1400" pageHeight="1190">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="boundary" value="C-APP / processo Spring Boot - componentes lógicos" style="rounded=1;dashed=1;fillColor=none;verticalAlign=top;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="210" width="1340" height="790" />
+        </mxCell>
+        <mxCell id="web" value="C-WEB + WhatsApp API&#10;[Contêiner / sistema externo]" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="500" y="55" width="380" height="100" />
+        </mxCell>
+        <mxCell id="ent" value="M-ENT / Entradas&#10;[Spring Web]&#10;Controllers, DTOs, webhook" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="300" width="270" height="115" />
+        </mxCell>
+        <mxCell id="seg" value="M-SEG / Segurança&#10;[Spring Security]&#10;Identidade, perfil e vínculo" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="560" width="270" height="115" />
+        </mxCell>
+        <mxCell id="cad" value="M-CAD / Cadastros&#10;[Componente Java]&#10;Pacientes e profissionais" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="490" y="280" width="300" height="100" />
+        </mxCell>
+        <mxCell id="age" value="M-AGE / Agenda&#10;[Componente Java]&#10;Slots e consultas" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="490" y="480" width="300" height="100" />
+        </mxCell>
+        <mxCell id="pro" value="M-PRO / Prontuário&#10;[Componente Java]&#10;Histórico e atendimento" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="490" y="680" width="300" height="100" />
+        </mxCell>
+        <mxCell id="pre" value="M-PRE / Prescrição&#10;[Componente Java]&#10;Prescrições e exames" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="850" width="300" height="100" />
+        </mxCell>
+        <mxCell id="rel" value="M-REL / Relatórios&#10;[Componente Java]&#10;Totalizadores da agenda" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="960" y="280" width="320" height="100" />
+        </mxCell>
+        <mxCell id="aud" value="M-AUD / Auditoria&#10;[Componente Java / worker]&#10;Captura e projeção outbox" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="960" y="680" width="320" height="110" />
+        </mxCell>
+        <mxCell id="inf" value="M-INF / Saída por portas&#10;[JPA / HTTP / Redis]&#10;Adaptadores por módulo" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="960" y="870" width="320" height="100" />
+        </mxCell>
+        <mxCell id="data" value="C-PG / C-REDIS / WhatsApp&#10;[Contêineres / sistema externo]" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="880" y="1060" width="470" height="100" />
+        </mxCell>
+        <mxCell id="note" value="Nota / dependências comuns omitidas das setas&#10;Casos de uso: autorização M-SEG e portas M-INF&#10;M-ENT também invoca M-PRE e M-REL" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="1040" width="760" height="110" />
+        </mxCell>
+        <mxCell id="edge0" value="HTTPS / JSON" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="web" target="ent" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge1" value="Autentica / autoriza" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="ent" target="seg" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge2" value="Manter / buscar" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="ent" target="cad" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge3" value="Agendar" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="ent" target="age" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge4" value="Abrir / atender" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="ent" target="pro" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge5" value="CadastroConsulta" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="age" target="cad" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge6" value="Consulta / realização" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="pro" target="age" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge7" value="AtendimentoConsulta" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="pre" target="pro" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge8" value="Leitura agregada" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="rel" target="age" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge9" value="Registro durável" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="pro" target="aud" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge10" value="Outbox / projeção" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="aud" target="inf" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge11" value="JDBC/TLS, RESP/TLS, HTTPS" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="inf" target="data" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="modelo-dominio" name="Modelo de domínio / relações principais">
+    <mxGraphModel page="1" pageWidth="1350" pageHeight="1150">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="esp" value="Especialidade&#10;id, nome" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="80" width="240" height="90" />
+        </mxCell>
+        <mxCell id="prof" value="Profissional&#10;id, nome, registroConselho" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="530" y="80" width="300" height="90" />
+        </mxCell>
+        <mxCell id="disp" value="Disponibilidade&#10;dia, início, fim, slot" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1020" y="80" width="290" height="90" />
+        </mxCell>
+        <mxCell id="pac" value="Paciente&#10;id, nome, cpf, nascimento" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="370" width="300" height="90" />
+        </mxCell>
+        <mxCell id="con" value="Consulta&#10;dataHora, status, versão" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="530" y="370" width="300" height="90" />
+        </mxCell>
+        <mxCell id="pront" value="Prontuario&#10;id, pacienteId" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="670" width="300" height="90" />
+        </mxCell>
+        <mxCell id="ate" value="Atendimento&#10;queixa, evolução, conduta" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="530" y="670" width="300" height="90" />
+        </mxCell>
+        <mxCell id="comp" value="Complemento&#10;autor, instante, motivo" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1020" y="670" width="290" height="90" />
+        </mxCell>
+        <mxCell id="item" value="ItemPrescricao&#10;medicamento, dose, posologia" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="980" width="320" height="90" />
+        </mxCell>
+        <mxCell id="pres" value="Prescricao&#10;id, dataEmissao" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="530" y="980" width="300" height="90" />
+        </mxCell>
+        <mxCell id="ex" value="SolicitacaoExame&#10;tipo, eventos de status" style="rounded=1;whiteSpace=wrap;html=0;fontSize=20;fillColor=#f1f7fa;strokeColor=#087e8b;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1020" y="980" width="290" height="90" />
+        </mxCell>
+        <mxCell id="edge0" value="0..N : 1..N" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="prof" target="esp" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge1" value="1 : 0..N" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="prof" target="disp" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge2" value="1 : 0..N" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="prof" target="con" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge3" value="1 : 0..N" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="pac" target="con" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge4" value="1 : 1" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="pac" target="pront" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge5" value="1 : 0..1" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="con" target="ate" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge6" value="1 : 0..N" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="pront" target="ate" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge7" value="1 : 0..N" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="ate" target="comp" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge8" value="1 : 0..N" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="ate" target="pres" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge9" value="1 : 1..N" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="pres" target="item" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge10" value="1 : 0..N" style="edgeStyle=none;endArrow=block;fontSize=17;labelBackgroundColor=#ffffff;" edge="1" source="ate" target="ex" parent="1">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

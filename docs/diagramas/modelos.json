@@ -1,0 +1,558 @@
+[
+  {
+    "name": "c4-contexto",
+    "title": "C4 / Nível 1 - Contexto",
+    "w": 1100,
+    "h": 900,
+    "boundary": null,
+    "nodes": [
+      {
+        "id": "rec",
+        "label": "Recepcionista\n[Pessoa]\nCadastros e agenda",
+        "x": 30,
+        "y": 60,
+        "w": 240,
+        "h": 100,
+        "kind": "component"
+      },
+      {
+        "id": "prof",
+        "label": "Profissional de saúde\n[Pessoa]\nAtendimento clínico",
+        "x": 415,
+        "y": 60,
+        "w": 240,
+        "h": 100,
+        "kind": "component"
+      },
+      {
+        "id": "adm",
+        "label": "Administrador\n[Pessoa]\nGestão e auditoria",
+        "x": 800,
+        "y": 60,
+        "w": 240,
+        "h": 100,
+        "kind": "component"
+      },
+      {
+        "id": "sc",
+        "label": "SaúdeCerta\n[Sistema de software]\nGestão da clínica",
+        "x": 415,
+        "y": 370,
+        "w": 270,
+        "h": 130,
+        "kind": "system"
+      },
+      {
+        "id": "pac",
+        "label": "Paciente\n[Pessoa]\nDados e consultas próprios",
+        "x": 30,
+        "y": 700,
+        "w": 240,
+        "h": 100,
+        "kind": "component"
+      },
+      {
+        "id": "wa",
+        "label": "WhatsApp Business API\n[Sistema externo]\nTransporte de mensagens",
+        "x": 800,
+        "y": 700,
+        "w": 260,
+        "h": 110,
+        "kind": "external"
+      }
+    ],
+    "edges": [
+      {
+        "a": "rec",
+        "b": "sc",
+        "label": "Cadastra / agenda"
+      },
+      {
+        "a": "prof",
+        "b": "sc",
+        "label": "Consulta / registra"
+      },
+      {
+        "a": "adm",
+        "b": "sc",
+        "label": "Administra / audita"
+      },
+      {
+        "a": "pac",
+        "b": "sc",
+        "label": "Autoatendimento web"
+      },
+      {
+        "a": "pac",
+        "b": "wa",
+        "label": "Conversa pelo aplicativo"
+      },
+      {
+        "a": "wa",
+        "b": "sc",
+        "label": "Entrega mensagens"
+      },
+      {
+        "a": "sc",
+        "b": "wa",
+        "label": "Envia confirmações"
+      }
+    ]
+  },
+  {
+    "name": "c4-conteineres",
+    "title": "C4 / Nível 2 - Contêineres",
+    "w": 1200,
+    "h": 1100,
+    "boundary": [
+      40,
+      220,
+      800,
+      820,
+      "SaúdeCerta / limite do sistema"
+    ],
+    "nodes": [
+      {
+        "id": "usr",
+        "label": "Paciente / Recepção\nProfissional / Administrador\n[Pessoas]",
+        "x": 100,
+        "y": 55,
+        "w": 320,
+        "h": 100,
+        "kind": "person"
+      },
+      {
+        "id": "web",
+        "label": "C-WEB / Interface web\n[Contêiner: HTML/CSS/JS]\nExecuta no navegador",
+        "x": 100,
+        "y": 290,
+        "w": 300,
+        "h": 110,
+        "kind": "component"
+      },
+      {
+        "id": "app",
+        "label": "C-APP / Aplicação\n[Contêiner: Java/Spring Boot]\nAPI, módulos, bot e worker",
+        "x": 100,
+        "y": 590,
+        "w": 330,
+        "h": 120,
+        "kind": "system"
+      },
+      {
+        "id": "pg",
+        "label": "C-PG / Banco transacional\n[Contêiner: PostgreSQL]\nNegócio, sessão web, outbox",
+        "x": 80,
+        "y": 900,
+        "w": 350,
+        "h": 110,
+        "kind": "data"
+      },
+      {
+        "id": "redis",
+        "label": "C-REDIS / Sessões e cache\n[Contêiner: Redis]\nEstado transitório do bot",
+        "x": 490,
+        "y": 900,
+        "w": 320,
+        "h": 110,
+        "kind": "data"
+      },
+      {
+        "id": "wa",
+        "label": "WhatsApp Business API\n[Sistema externo]\nMensagens / webhooks",
+        "x": 880,
+        "y": 340,
+        "w": 280,
+        "h": 120,
+        "kind": "external"
+      }
+    ],
+    "edges": [
+      {
+        "a": "usr",
+        "b": "web",
+        "label": "Opera interface"
+      },
+      {
+        "a": "web",
+        "b": "app",
+        "label": "HTTPS / JSON e arquivos"
+      },
+      {
+        "a": "app",
+        "b": "pg",
+        "label": "Persiste / consulta via JDBC/TLS"
+      },
+      {
+        "a": "app",
+        "b": "redis",
+        "label": "Sessões / cache via RESP/TLS"
+      },
+      {
+        "a": "usr",
+        "b": "wa",
+        "label": "Paciente conversa"
+      },
+      {
+        "a": "wa",
+        "b": "app",
+        "label": "Webhooks HTTPS"
+      },
+      {
+        "a": "app",
+        "b": "wa",
+        "label": "Confirmações HTTPS"
+      }
+    ]
+  },
+  {
+    "name": "c4-componentes",
+    "title": "C4 / Nível 3 - Componentes de C-APP",
+    "w": 1400,
+    "h": 1190,
+    "boundary": [
+      30,
+      210,
+      1340,
+      790,
+      "C-APP / processo Spring Boot - componentes lógicos"
+    ],
+    "nodes": [
+      {
+        "id": "web",
+        "label": "C-WEB + WhatsApp API\n[Contêiner / sistema externo]",
+        "x": 500,
+        "y": 55,
+        "w": 380,
+        "h": 100,
+        "kind": "external"
+      },
+      {
+        "id": "ent",
+        "label": "M-ENT / Entradas\n[Spring Web]\nControllers, DTOs, webhook",
+        "x": 60,
+        "y": 300,
+        "w": 270,
+        "h": 115,
+        "kind": "component"
+      },
+      {
+        "id": "seg",
+        "label": "M-SEG / Segurança\n[Spring Security]\nIdentidade, perfil e vínculo",
+        "x": 60,
+        "y": 560,
+        "w": 270,
+        "h": 115,
+        "kind": "component"
+      },
+      {
+        "id": "cad",
+        "label": "M-CAD / Cadastros\n[Componente Java]\nPacientes e profissionais",
+        "x": 490,
+        "y": 280,
+        "w": 300,
+        "h": 100,
+        "kind": "component"
+      },
+      {
+        "id": "age",
+        "label": "M-AGE / Agenda\n[Componente Java]\nSlots e consultas",
+        "x": 490,
+        "y": 480,
+        "w": 300,
+        "h": 100,
+        "kind": "component"
+      },
+      {
+        "id": "pro",
+        "label": "M-PRO / Prontuário\n[Componente Java]\nHistórico e atendimento",
+        "x": 490,
+        "y": 680,
+        "w": 300,
+        "h": 100,
+        "kind": "component"
+      },
+      {
+        "id": "pre",
+        "label": "M-PRE / Prescrição\n[Componente Java]\nPrescrições e exames",
+        "x": 60,
+        "y": 850,
+        "w": 300,
+        "h": 100,
+        "kind": "component"
+      },
+      {
+        "id": "rel",
+        "label": "M-REL / Relatórios\n[Componente Java]\nTotalizadores da agenda",
+        "x": 960,
+        "y": 280,
+        "w": 320,
+        "h": 100,
+        "kind": "component"
+      },
+      {
+        "id": "aud",
+        "label": "M-AUD / Auditoria\n[Componente Java / worker]\nCaptura e projeção outbox",
+        "x": 960,
+        "y": 680,
+        "w": 320,
+        "h": 110,
+        "kind": "component"
+      },
+      {
+        "id": "inf",
+        "label": "M-INF / Saída por portas\n[JPA / HTTP / Redis]\nAdaptadores por módulo",
+        "x": 960,
+        "y": 870,
+        "w": 320,
+        "h": 100,
+        "kind": "component"
+      },
+      {
+        "id": "data",
+        "label": "C-PG / C-REDIS / WhatsApp\n[Contêineres / sistema externo]",
+        "x": 880,
+        "y": 1060,
+        "w": 470,
+        "h": 100,
+        "kind": "data"
+      },
+      {
+        "id": "note",
+        "label": "Nota / dependências comuns omitidas das setas\nCasos de uso: autorização M-SEG e portas M-INF\nM-ENT também invoca M-PRE e M-REL",
+        "x": 40,
+        "y": 1040,
+        "w": 760,
+        "h": 110,
+        "kind": "note"
+      }
+    ],
+    "edges": [
+      {
+        "a": "web",
+        "b": "ent",
+        "label": "HTTPS / JSON"
+      },
+      {
+        "a": "ent",
+        "b": "seg",
+        "label": "Autentica / autoriza"
+      },
+      {
+        "a": "ent",
+        "b": "cad",
+        "label": "Manter / buscar"
+      },
+      {
+        "a": "ent",
+        "b": "age",
+        "label": "Agendar"
+      },
+      {
+        "a": "ent",
+        "b": "pro",
+        "label": "Abrir / atender"
+      },
+      {
+        "a": "age",
+        "b": "cad",
+        "label": "CadastroConsulta"
+      },
+      {
+        "a": "pro",
+        "b": "age",
+        "label": "Consulta / realização"
+      },
+      {
+        "a": "pre",
+        "b": "pro",
+        "label": "AtendimentoConsulta"
+      },
+      {
+        "a": "rel",
+        "b": "age",
+        "label": "Leitura agregada"
+      },
+      {
+        "a": "pro",
+        "b": "aud",
+        "label": "Registro durável"
+      },
+      {
+        "a": "aud",
+        "b": "inf",
+        "label": "Outbox / projeção"
+      },
+      {
+        "a": "inf",
+        "b": "data",
+        "label": "JDBC/TLS, RESP/TLS, HTTPS"
+      }
+    ]
+  },
+  {
+    "name": "modelo-dominio",
+    "title": "Modelo de domínio / relações principais",
+    "w": 1350,
+    "h": 1150,
+    "boundary": null,
+    "nodes": [
+      {
+        "id": "esp",
+        "label": "Especialidade\nid, nome",
+        "x": 30,
+        "y": 80,
+        "w": 240,
+        "h": 90,
+        "kind": "component"
+      },
+      {
+        "id": "prof",
+        "label": "Profissional\nid, nome, registroConselho",
+        "x": 530,
+        "y": 80,
+        "w": 300,
+        "h": 90,
+        "kind": "component"
+      },
+      {
+        "id": "disp",
+        "label": "Disponibilidade\ndia, início, fim, slot",
+        "x": 1020,
+        "y": 80,
+        "w": 290,
+        "h": 90,
+        "kind": "component"
+      },
+      {
+        "id": "pac",
+        "label": "Paciente\nid, nome, cpf, nascimento",
+        "x": 30,
+        "y": 370,
+        "w": 300,
+        "h": 90,
+        "kind": "component"
+      },
+      {
+        "id": "con",
+        "label": "Consulta\ndataHora, status, versão",
+        "x": 530,
+        "y": 370,
+        "w": 300,
+        "h": 90,
+        "kind": "component"
+      },
+      {
+        "id": "pront",
+        "label": "Prontuario\nid, pacienteId",
+        "x": 30,
+        "y": 670,
+        "w": 300,
+        "h": 90,
+        "kind": "component"
+      },
+      {
+        "id": "ate",
+        "label": "Atendimento\nqueixa, evolução, conduta",
+        "x": 530,
+        "y": 670,
+        "w": 300,
+        "h": 90,
+        "kind": "component"
+      },
+      {
+        "id": "comp",
+        "label": "Complemento\nautor, instante, motivo",
+        "x": 1020,
+        "y": 670,
+        "w": 290,
+        "h": 90,
+        "kind": "component"
+      },
+      {
+        "id": "item",
+        "label": "ItemPrescricao\nmedicamento, dose, posologia",
+        "x": 30,
+        "y": 980,
+        "w": 320,
+        "h": 90,
+        "kind": "component"
+      },
+      {
+        "id": "pres",
+        "label": "Prescricao\nid, dataEmissao",
+        "x": 530,
+        "y": 980,
+        "w": 300,
+        "h": 90,
+        "kind": "component"
+      },
+      {
+        "id": "ex",
+        "label": "SolicitacaoExame\ntipo, eventos de status",
+        "x": 1020,
+        "y": 980,
+        "w": 290,
+        "h": 90,
+        "kind": "component"
+      }
+    ],
+    "edges": [
+      {
+        "a": "prof",
+        "b": "esp",
+        "label": "0..N : 1..N"
+      },
+      {
+        "a": "prof",
+        "b": "disp",
+        "label": "1 : 0..N"
+      },
+      {
+        "a": "prof",
+        "b": "con",
+        "label": "1 : 0..N"
+      },
+      {
+        "a": "pac",
+        "b": "con",
+        "label": "1 : 0..N"
+      },
+      {
+        "a": "pac",
+        "b": "pront",
+        "label": "1 : 1"
+      },
+      {
+        "a": "con",
+        "b": "ate",
+        "label": "1 : 0..1"
+      },
+      {
+        "a": "pront",
+        "b": "ate",
+        "label": "1 : 0..N"
+      },
+      {
+        "a": "ate",
+        "b": "comp",
+        "label": "1 : 0..N"
+      },
+      {
+        "a": "ate",
+        "b": "pres",
+        "label": "1 : 0..N"
+      },
+      {
+        "a": "pres",
+        "b": "item",
+        "label": "1 : 1..N"
+      },
+      {
+        "a": "ate",
+        "b": "ex",
+        "label": "1 : 0..N"
+      }
+    ]
+  }
+]
