@@ -1,34 +1,68 @@
-HELP.md
+# Maven / Java
 target/
-.mvn/wrapper/maven-wrapper.jar
+*.class
+HELP.md
 !**/src/main/**/target/
 !**/src/test/**/target/
-fontes/
+# O Maven Wrapper deve poder ser versionado, incluindo seu JAR.
 
-### STS ###
-.apt_generated
+# Materiais de referência locais
+/fontes/
+
+# Eclipse / STS
+.apt_generated/
+.apt_generated_tests/
 .classpath
 .factorypath
 .project
-.settings
+.settings/
 .springBeans
-.sts4-cache
+.sts4-cache/
 
-### IntelliJ IDEA ###
-.idea
+# IntelliJ IDEA
+.idea/
 *.iws
 *.iml
 *.ipr
 
-### NetBeans ###
+# NetBeans / Gradle
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
+.gradle/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### VS Code ###
+# VS Code
 .vscode/
+
+# Logs e arquivos temporários
+*.log
+*.tmp
+*.swp
+*.swo
+*~
+
+# Metadados do Windows (inclui nomes convertidos ao copiar para WSL)
+*Zone.Identifier*
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Metadados do macOS
+.DS_Store
+._*
+
+# Variáveis de ambiente locais; modelos continuam versionáveis
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+
+# Banco H2 local (se habilitado em arquivo)
+*.mv.db
+*.trace.db

@@ -1,58 +1,69 @@
-# Matriz de rastreabilidade requisitos ↔ arquitetura
+# Matriz de rastreabilidade
 
-Cobertura: 13 RF oficiais, 7 RN, 7 RNF e 5 complementos da equipe (32 linhas). IDs e critérios seguem [requisitos](requisitos.md). Componentes M e contêineres C são os identificadores dos C4 e da [arquitetura](arquitetura.md). V identifica verificação planejada; CQ identifica [cenário de qualidade](cenarios-qualidade.md). Nenhum V representa teste executado nesta E2.
+Os IDs e critérios seguem [requisitos.md](requisitos.md): 13 RF, 7 RN, 7 RNF e 5 complementos. Esta consolidação preserva o catálogo da E2 e incorpora evidências da implementação atual, sem reutilizar os IDs para funcionalidades diferentes.
 
-| Requisito | Componente / tática | Decisão | Verificação planejada |
+**Evidência** significa código ou teste inspecionado, não execução bem-sucedida nesta revisão. **Planejado** indica validação ainda necessária. A [arquitetura](arquitetura.md) distingue implementação e evolução. ADRs com quatro dígitos documentam escolhas atuais; a série `adr-001` a `adr-006` registra o projeto anterior.
+
+## Requisitos funcionais
+
+| ID | Requisito | Componente / decisão atual | Evidência e lacuna |
 |---|---|---|---|
-| RF01 | M-CAD / C-PG | [ADR-003](adr/adr-003.md) | V-CAD: cadastro válido, busca e CPF duplicado ativo recusado. |
-| RF02 | M-CAD / C-PG | [ADR-002](adr/adr-002.md); [ADR-003](adr/adr-003.md) | V-CAD: impedir profissional sem especialidade; permitir múltiplas. |
-| RF03 | M-AGE | [ADR-003](adr/adr-003.md) | V-AGENDA: gerar slots só na faixa; impedir alteração que invalide consulta. |
-| RF04 | M-AGE / C-PG | [ADR-003](adr/adr-003.md) | V-AGENDA: 201 após commit; slot livre vira AGENDADA. |
-| RF05 | M-AGE / C-PG | [ADR-003](adr/adr-003.md) | V-AGENDA: remarcação/cancelamento libera origem; falha mantém origem. |
-| RF06 | M-AGE / C-PG | [ADR-003](adr/adr-003.md) | V-AGENDA: disputa concorrente tem uma confirmação e um conflito. |
-| RF07 | M-PRO / M-AGE | [ADR-003](adr/adr-003.md); [ADR-005](adr/adr-005.md) | V-DOM: atendimento com queixa/evolução/conduta; consulta REALIZADA atomicamente. |
-| RF08 | M-PRE | [ADR-003](adr/adr-003.md) | V-DOM: prescrição exige atendimento e ao menos um item com dose/posologia. |
-| RF09 | M-PRE | [ADR-003](adr/adr-003.md) | V-DOM: exame vinculado e histórico de status preservado. |
-| RF10 | M-PRO / M-SEG | [ADR-004](adr/adr-004.md); [ADR-005](adr/adr-005.md) | V-DOM/V-SEG: histórico cronológico autorizado; auditoria anterior à liberação. |
-| RF11 | M-SEG | [ADR-004](adr/adr-004.md) | V-SEG/V-CRED: autenticação, perfis e propriedade do recurso. |
-| RF12 | M-AUD / C-PG | [ADR-005](adr/adr-005.md) | V-AUD: campos completos, sem perda e projeção idempotente. |
-| RF13 | M-REL / M-AGE | [ADR-002](adr/adr-002.md); [ADR-004](adr/adr-004.md) | V-REL: totalizadores corretos por período/profissional/especialidade, sem texto clínico. |
-| RF-E01 | M-ENT / M-AGE / M-INF / C-REDIS | [ADR-001](adr/adr-001.md); [ADR-003](adr/adr-003.md); [ADR-004](adr/adr-004.md); [ADR-005](adr/adr-005.md) | V-BOT: assinatura inválida recusada; webhook repetido cria uma consulta; confirmação pós-commit; falhas isoladas. |
-| RN01 | M-CAD / C-PG | [ADR-003](adr/adr-003.md) | V-CAD: corrida de CPF ativo resulta em um cadastro; normalização preserva unicidade. |
-| RN02 | M-AGE / C-PG | [ADR-003](adr/adr-003.md) | V-AGENDA: marcações simultâneas web/bot no mesmo slot. |
-| RN03 | M-PRO | [ADR-003](adr/adr-003.md) | V-DOM: atender hoje/passado permitido; consulta futura rejeitada com relógio controlado. |
-| RN04 | M-PRE / C-PG | [ADR-003](adr/adr-003.md) | V-DOM: impedir prescrição/exame órfão por regra e FK. |
-| RN05 | M-PRO / M-PRE / C-PG | [ADR-003](adr/adr-003.md); [ADR-005](adr/adr-005.md) | V-DOM: sem exclusão/alteração clínica; complemento preserva original; permissão SQL restrita. |
-| RN06 | M-SEG / M-PRO | [ADR-004](adr/adr-004.md) | V-SEG: paciente de outro ID e recepção bloqueados. |
-| RN07 | M-AGE | [ADR-003](adr/adr-003.md) | V-AGENDA: cancelar REALIZADA/CANCELADA recusado; corrida cancelar/atender consistente. |
-| RN-E01 | M-SEG / M-CAD | [ADR-004](adr/adr-004.md) | V-SEG: nome da mãe nunca concede sessão nem acesso; proposta auxiliar a validar. |
-| RN-E02 | M-AGE | [ADR-003](adr/adr-003.md) | V-AGENDA: agendamento passado recusado; fronteira de dia na zona da clínica. |
-| RNF01 | M-SEG / M-PRO / M-AUD | [ADR-004](adr/adr-004.md); [ADR-005](adr/adr-005.md) | CQ01 / V-SEG: 100% de negativas; auditoria de tentativas. |
-| RNF02 | M-AUD / C-PG | [ADR-005](adr/adr-005.md) | CQ02 / V-AUD: trilha consultável em <=60 s. |
-| RNF03 | M-CAD / C-PG | [ADR-003](adr/adr-003.md); [ADR-006](adr/adr-006.md) | CQ03 / V-PERF: busca de paciente P95 <2 s. |
-| RNF04 | C-APP / C-PG / M-INF | [ADR-001](adr/adr-001.md); [ADR-006](adr/adr-006.md) | CQ04 / V-DISP: agenda >=99% durante 12 h/dia no mês. |
-| RNF05 | Todos os módulos de C-APP | [ADR-002](adr/adr-002.md) | CQ05 / V-MOD: extensão em até 5 dias/equipe sem mudar núcleos. |
-| RNF06 | C-WEB / M-AGE | [ADR-002](adr/adr-002.md); [ADR-004](adr/adr-004.md) | CQ06 / V-UX: <=1 min e <=5 cliques. |
-| RNF07 | M-SEG / C-PG | [ADR-004](adr/adr-004.md) | CQ07 / V-CRED: hash com sal, sem senha em texto. |
-| RNF-E01 | M-CAD / C-PG | [ADR-003](adr/adr-003.md); [ADR-006](adr/adr-006.md) | CQ08 / V-PERF: máximo <=3 s no ensaio, mantendo RNF03. |
-| RNF-E02 | C-APP / C-PG / operação | [ADR-006](adr/adr-006.md) | CQ09 / V-REC: recuperação <=30 min. |
+| RF01 | Manter pacientes | PacienteController, PacienteService, Cpf; ADR 0006 | CpfTest e roteiro etapa 2; validar fluxo completo de manutenção. |
+| RF02 | Profissionais e especialidades | ProfissionalController, ProfissionalService; ADR 0006 | Modelo exige uma especialidade; roteiro etapa 6. Múltiplas especialidades da proposta E2 não estão implementadas. |
+| RF03 | Definir disponibilidade | AgendaService.horariosLivres | Parcial: grade fixa; não existe configuração individual por profissional. Planejado: faixas, dias e bloqueio de alterações incompatíveis. |
+| RF04 | Marcar consulta | AgendaService.agendar, Consulta.agendar; ADR 0002 | FluxoDaClinicaTest.agendaEDetectaConflito e ConsultaTest; concorrência pendente. |
+| RF05 | Remarcar ou cancelar | Consulta.cancelar, AgendaService.remarcar | Cancelamento existe; remarcação lança MissaoPendenteException (E3-1). Planejado: falha no destino preserva origem. |
+| RF06 | Impedir conflito | Consulta.conflitaCom, AgendaService | ConsultaTest e agendaEDetectaConflito verificam domínio/fluxo sequencial; corrida entre requisições não está protegida (E3-5). |
+| RF07 | Registrar atendimento | ProntuarioService, Atendimento; ADR 0002 | AtendimentoTest; escrita exige responsável. Ver divergências RN03/RN05. |
+| RF08 | Emitir prescrição | Prescricao, missão E3-2 | Esqueleto; PrescricaoTest está desativado. missoesRespondem501 confirma pendência, não conclusão. |
+| RF09 | Solicitar exames | Evolução de Prontuário | Pendente: não há implementação de solicitação e histórico de status no código inspecionado. |
+| RF10 | Histórico clínico | ProntuarioService.doPaciente; ADR 0004 | prontuarioRestritoAProfissionais; parcial, sem prescrições/exames e sem controle de vínculo clínico na leitura. |
+| RF11 | Autenticação e perfis | AuthController, AutenticacaoService, SecurityConfig; ADR 0004/0005 | exigeAutenticacao, recusaSenhaErrada, prontuarioRestritoAProfissionais; portal do paciente pendente (E3-4). |
+| RF12 | Auditar prontuário | AuditoriaService, ProntuarioService; ADR 0003 | leituraDeProntuarioEhAuditada; escrita síncrona em transação própria. Validar falhas e negativas. |
+| RF13 | Relatórios gerenciais | Missão E3-3 | Pendente; PainelService resume o dia, mas não substitui relatórios por período/profissional/especialidade. |
+| RF-E01 | Agendamento por WhatsApp | Proposta E2; sem adaptador atual | Planejado: assinatura, vínculo de identidade, deduplicação, confirmação pós-commit e isolamento de falhas. |
 
-## Leitura inversa: arquitetura → requisitos
+## Regras de negócio
 
-| Elemento | Requisitos atendidos |
+| ID | Regra | Evidência atual / decisão | Verificação necessária ou divergência |
+|---|---|---|---|
+| RN01 | CPF único entre ativos | Paciente.cpf tem unique=true; Cpf/PacienteService; ADR 0006 | Restrição é mais forte: inclui inativos. Planejado: corrida de cadastros e normalização. |
+| RN02 | Sem duas AGENDADAS no mesmo horário | Consulta.conflitaCom e AgendaService | Considera todos os estados não cancelados; falta garantia concorrente. Planejado: duas conexões com barreira no PostgreSQL. |
+| RN03 | Atender somente consulta de hoje ou anterior | ProntuarioService.iniciar e Consulta.iniciarAtendimento | Não há validação da data; confirmar chegada não a substitui. Planejado: hoje/passado/futuro com relógio controlado. |
+| RN04 | Prescrição/exame vinculados a atendimento | Prescricao possui atendimentoId, mas é esqueleto | Pendente: regras e persistência que impeçam registros órfãos. |
+| RN05 | Prontuário somente por anexação | Atendimento.finalizar; AtendimentoTest.finalizadoEhImutavel | Parcial: aberto permite sobrescrita, não há complementos nem proteção SQL de somente anexação demonstrada. |
+| RN06 | Paciente vê próprios dados; recepção sem conteúdo clínico | SecurityConfig; ADR 0004 | Rota do prontuário bloqueia recepção; portal pendente. Revisar também alertas clínicos expostos no cadastro/agenda. |
+| RN07 | Cancelar apenas AGENDADA | Consulta.cancelar; ConsultaTest.regrasDeCancelamento | Diverge: aceita CONFIRMADA. O teste do comportamento atual não comprova aderência ao requisito. |
+| RN-E01 | Nome da mãe como informação auxiliar | Proposta não implementada | Validar com a clínica; nunca usar isoladamente como autenticação. |
+| RN-E02 | Não agendar no passado | Consulta.agendar; Clock em AgendaService | ConsultaTest; planejar fronteiras de dia e zona da clínica (hoje usa zona padrão do servidor). |
+
+## Requisitos não funcionais
+
+| ID | Meta do catálogo | Componente / decisão | Evidência e verificação pendente |
+|---|---|---|---|
+| RNF01 | Negar e auditar 100% dos acessos sem permissão | SecurityConfig, AuditoriaService; ADR 0004/0003 | Teste de bloqueio de administrador existe; auditoria de todas as negativas não está implementada. CQ01: ampliar perfis e IDs manipulados. |
+| RNF02 | Trilha disponível em até 1 minuto | AuditoriaService com REQUIRES_NEW; ADR 0003 | leituraDeProntuarioEhAuditada; CQ02: medir prazo e falhas, sem presumir garantia sob carga. |
+| RNF03 | Busca de paciente P95 <2 s | PacienteService e persistência; ADR 0006 | Sem ensaio de carga nesta revisão. CQ03: definir carga e registrar percentis; Raio-X auxilia, mas não comprova a meta. |
+| RNF04 | Agenda >=99% nas 12 h/dia do mês | Processo único; H2 padrão ou perfil PostgreSQL | CQ04: monitoramento prolongado; persistência em PostgreSQL não garante disponibilidade. |
+| RNF05 | Extensão em até 5 dias/equipe sem alterar núcleos | APIs modulares; ADR 0001/0002 | ArquiteturaTest verifica limites e ciclos; CQ05 deve medir esforço real de extensão. |
+| RNF06 | Agendar em <=1 min e <=5 cliques | Interface estática e Agenda | Roteiro etapa 3; CQ06: ensaio com usuários e contagem desde a tela inicial. |
+| RNF07 | Senhas com hash e sal | BCryptPasswordEncoder em SecurityConfig; ADR 0005 | Evidência de configuração; CQ07: revisar persistência e ausência de senhas nos logs. |
+| RNF-E01 | Busca paciente/profissional <=3 s | Cadastro e persistência | CQ08: medir as duas buscas; manter também P95 <2 s para pacientes. |
+| RNF-E02 | Recuperação <=30 min | Operação; perfil PostgreSQL | CQ09: ensaio de backup/restore; H2 padrão perde dados no reinício. Não comprovado. |
+
+## Leitura inversa e plano de validação
+
+| Módulo / elemento atual | Requisitos relacionados |
 |---|---|
-| C-WEB / M-ENT | RF01-RF13 conforme perfil; RF-E01 pelo webhook; RNF06 |
-| M-CAD | RF01/RF02; RN01; RNF03; RNF-E01 |
-| M-AGE | RF03-RF06, RF13; RN02/RN07; RN-E02; RNF04/RNF06 |
-| M-PRO | RF07/RF10; RN03/RN05/RN06; RNF01/RNF02 |
-| M-PRE | RF08/RF09; RN04/RN05 |
-| M-SEG | RF11; RN06/RN-E01; RNF01/RNF07 |
-| M-AUD | RF12; RNF01/RNF02; suporte à preservação de RN05 |
-| M-REL | RF13 |
-| M-INF / C-PG | Persistência e integridade dos RF01-RF13; RN01-RN05/RN07; RNF02-RNF04/RNF07; RNF-E01/E02 |
-| C-REDIS / WhatsApp | RF-E01; isolamento de falhas protege RNF04 |
-| C-APP / fronteiras e operação | RNF05; RNF04/RNF-E02 |
+| cadastro | RF01/RF02; RN01; RNF03/RNF-E01 |
+| agenda | RF03-RF06; RN02/RN07/RN-E02; RNF04/RNF06 |
+| prontuario | RF07-RF10; RN03-RN06; RNF01/RNF02 (inclui pendências) |
+| seguranca | RF11; RN06; RNF01/RNF07 |
+| auditoria | RF12; RNF01/RNF02 |
+| painel | Resumo diário adicional; não satisfaz sozinho RF13 |
+| APIs dos módulos / ArchUnit | RNF05 |
+| Persistência e operação | Integridade, RNF04/RNF-E02 |
 
-## Evidências esperadas na E3/PF
+Chegada, ciclo de atendimento, resumo diário e consulta administrativa de auditoria são capacidades atuais complementares, sem renumerar RF01-RF13. Portal é parte da evolução de RF11/RN06; relatórios e prescrições mantêm RF13 e RF08.
 
-V-CAD/V-DOM: testes de domínio e integração; V-AGENDA: PostgreSQL com duas conexões e barreira concorrente; V-REL: base sintética de totais conhecidos; V-BOT: provedor simulado, repetição, assinatura, vínculo e falhas. V-SEG/V-CRED/V-AUD/V-PERF/V-DISP/V-MOD/V-UX/V-REC usam os protocolos dos cenários. Armazenar ambiente, revisão de código, dados sintéticos, resultados e data; não usar pacientes reais nos ensaios.
+Preservam-se da E2 os ensaios de concorrência, falha de remarcação, integridade clínica, totalizadores com base conhecida, segurança do bot e recuperação. Os protocolos CQ01-CQ09 estão nos [cenários](cenarios-qualidade.md); referências a Redis/outbox nesses materiais são alvos de evolução, não evidências atuais. Registrar ambiente, revisão do código, data, dados sintéticos e resultados. Não usar pacientes reais nos ensaios.
